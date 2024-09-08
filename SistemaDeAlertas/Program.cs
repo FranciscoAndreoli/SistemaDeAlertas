@@ -1,4 +1,5 @@
 ﻿using SistemaDeAlertas.Entidades;
+using SistemaDeAlertas.Interfaces;
 
 namespace SistemaDeAlertas
 {
@@ -12,6 +13,10 @@ namespace SistemaDeAlertas
 
             tema1.agregarAlerta(TipoAlerta.INFORMATIVA, tema1, DateTime.Now, false, false);
             tema1.agregarAlerta(TipoAlerta.URGENTE, tema1, DateTime.Now, false, false);
+
+            fran.SuscribirseATema(tema1);
+
+            var usuarios = tema1.ObtenerObservadoresSuscriptos();
 
             foreach (Alerta alerta in tema1.AlertasDelTema)
             {

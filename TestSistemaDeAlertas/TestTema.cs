@@ -19,7 +19,7 @@ namespace TestSistemaDeAlertas
             Assert.AreEqual(nombre, tema.Nombre);
             Assert.IsNotNull(tema.AlertasDelTema, "Error: La lista no debe ser nula.");
             Assert.AreEqual(0, tema.AlertasDelTema.Count, "Error: La lista no debe contener valores.");
-            Assert.AreEqual(0, tema.UsuariosSuscriptos.Count, "Error: La lista no debe contener valores.");
+            Assert.AreEqual(0, tema.ObservadoresSuscriptos.Count, "Error: La lista no debe contener valores.");
 
         }
 

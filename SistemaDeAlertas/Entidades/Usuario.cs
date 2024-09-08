@@ -2,31 +2,36 @@
 
 namespace SistemaDeAlertas.Entidades
 {
-	public class Usuario : IObservador
-	{
-		public string Nombre { get; }
-		public List<Alerta> AlertasDelUsuario { get; private set; }
-		public Usuario(string nombre)
-		{
-			Nombre = nombre;
-			AlertasDelUsuario = new List<Alerta>();
+    public class Usuario : IObservador
+    {
+        public string Nombre { get; }
+        public List<Alerta> AlertasDelUsuario { get; private set; }
+        public Usuario(string nombre)
+        {
+            Nombre = nombre;
+            AlertasDelUsuario = new List<Alerta>();
 
         }
 
-		public void marcarAlertaComoLeida()
-		{
+        public void marcarAlertaComoLeida()
+        {
+            throw new NotImplementedException();
+        }
 
-		}
+        public List<Alerta> obtenerAlertasNoLeidas()
+        {
+            throw new NotImplementedException();
+        }
 
-		public void obtenerAlertasNoLeidas()
-		{
+        public void SuscribirseATema(INotificador notificador)
+        {
+            notificador.suscribirUsuario(this);
+        }
 
-		}
-
-		public void recibirAlerta(Alerta alerta)
-		{
-			AlertasDelUsuario.Add(alerta);
+        public void recibirAlerta(Alerta alerta)
+        {
+            AlertasDelUsuario.Add(alerta);
 
         }
-	}
+    }
 }

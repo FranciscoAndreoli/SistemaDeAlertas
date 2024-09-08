@@ -7,7 +7,7 @@ namespace SistemaDeAlertas.Entidades
         public TipoAlerta Tipo { get; private set; }
         public Tema TemaAsociado { get; private set; }
         public DateTime FechaExpiracion { get; private set; }
-        public bool Expiro {  get; private set; }
+        public bool Expiro { get; private set; }
         public bool Leido { get; private set; }
 
         public Alerta(TipoAlerta tipo, Tema temaAsociado, DateTime fechaExpiracion, bool expiro, bool leido)
@@ -21,9 +21,9 @@ namespace SistemaDeAlertas.Entidades
 
         public void esExpirada()
         {
-            if(FechaExpiracion < DateTime.Now)
+            if (FechaExpiracion < DateTime.Now)
             {
-                Expiro = true; 
+                Expiro = true;
             }
 
         }
