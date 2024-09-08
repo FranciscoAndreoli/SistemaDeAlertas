@@ -8,8 +8,8 @@ namespace SistemaDeAlertas.Entidades
         public List<Alerta> AlertasDelUsuario { get; private set; }
         public Usuario(string nombre)
         {
-            Nombre = nombre;
-            AlertasDelUsuario = new List<Alerta>();
+            this.Nombre = nombre;
+            this.AlertasDelUsuario = new List<Alerta>();
 
         }
 
@@ -23,7 +23,7 @@ namespace SistemaDeAlertas.Entidades
             throw new NotImplementedException();
         }
 
-        public void SuscribirseATema(INotificador notificador)
+        public void suscribirseATema(INotificador notificador)
         {
             notificador.suscribirUsuario(this);
         }

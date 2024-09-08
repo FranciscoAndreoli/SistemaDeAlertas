@@ -31,7 +31,7 @@ namespace TestSistemaDeAlertas
             var fechaExpiracionEstimada = DateTime.Now.AddDays(1);
 
             //act
-            tema.agregarAlerta(TipoAlerta.URGENTE, tema, fechaExpiracionEstimada, false, false);
+            tema.agregarAlerta(TipoAlerta.URGENTE, tema, fechaExpiracionEstimada, false, false, true);
             var alerta = tema.AlertasDelTema[0];
 
             //assert
@@ -41,6 +41,7 @@ namespace TestSistemaDeAlertas
             Assert.AreEqual(alerta.FechaExpiracion, fechaExpiracionEstimada, "Error: La fecha de expiración es incorrecta.");
             Assert.IsFalse(alerta.Expiro, "Error: El atributo 'Expiró' debere ser False.");
             Assert.IsFalse(alerta.Leido, "Error: El atributo 'Leído' debere ser False.");
+            Assert.IsTrue(alerta.EsParaTodos, "Error: El atributo 'esParaTodos' debere ser True.");
         }
 
     }

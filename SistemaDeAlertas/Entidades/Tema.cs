@@ -11,14 +11,14 @@ namespace SistemaDeAlertas.Entidades
 
         public Tema(string nombre)
         {
-            Nombre = nombre;
-            ObservadoresSuscriptos = new List<IObservador>();
-            AlertasDelTema = new List<Alerta>();
+            this.Nombre = nombre;
+            this.ObservadoresSuscriptos = new List<IObservador>();
+            this.AlertasDelTema = new List<Alerta>();
 
         }
-        public void agregarAlerta(TipoAlerta tipo, Tema temaAsociado, DateTime fechaExpiracion, bool expiro, bool leido)
+        public void agregarAlerta(TipoAlerta tipo, Tema temaAsociado, DateTime fechaExpiracion, bool expiro, bool leido, bool esParaTodos, Usuario? usuarioEspecifico = null)
         {
-            Alerta nuevaAlerta = new Alerta(tipo, temaAsociado, fechaExpiracion, expiro, leido);
+            var nuevaAlerta = new Alerta(tipo, temaAsociado, fechaExpiracion, expiro, leido, esParaTodos, usuarioEspecifico);
             AlertasDelTema.Add(nuevaAlerta);
         }
 
@@ -30,12 +30,11 @@ namespace SistemaDeAlertas.Entidades
         public void suscribirUsuario(IObservador usuario)
         {
             ObservadoresSuscriptos.Add(usuario);
-
         }
 
         public void desuscribirUsuario(IObservador usuario)
         {
-            throw new NotImplementedException();
+            ObservadoresSuscriptos.Remove(usuario);
         }
 
         public List<IObservador> ObtenerObservadoresSuscriptos()

@@ -7,22 +7,22 @@ namespace SistemaDeAlertas
     {
         static void Main(string[] args)
         {
-            Usuario fran = new Usuario("Francisco");
+            var fran = new Usuario("Francisco");
+            var jorge = new Usuario("Jorge");
+            var martin = new Usuario("Martin");
 
-            Tema tema1 = new Tema("Noticias");
+            var tema1 = new Tema("Noticias");
+            var tema2 = new Tema("Notificaciones");
 
-            tema1.agregarAlerta(TipoAlerta.INFORMATIVA, tema1, DateTime.Now, false, false);
-            tema1.agregarAlerta(TipoAlerta.URGENTE, tema1, DateTime.Now, false, false);
+            fran.suscribirseATema(tema1);
+            jorge.suscribirseATema(tema2);
+            martin.suscribirseATema(tema2);
 
-            fran.SuscribirseATema(tema1);
+            tema1.agregarAlerta(TipoAlerta.INFORMATIVA, tema1, DateTime.Now, false, false, true);
+            tema2.agregarAlerta(TipoAlerta.URGENTE, tema1, DateTime.Now, false, false, false, jorge);
+
 
             var usuarios = tema1.ObtenerObservadoresSuscriptos();
-
-            foreach (Alerta alerta in tema1.AlertasDelTema)
-            {
-                Console.WriteLine($"TIpo: {alerta.Tipo} y expiracion: {alerta.FechaExpiracion}");
-            }
-
 
             Console.WriteLine("Press any key to exit...");
             Console.ReadKey();

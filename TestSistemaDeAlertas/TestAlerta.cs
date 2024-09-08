@@ -19,7 +19,7 @@ namespace TestSistemaDeAlertas
             var fechaExpiracion = DateTime.Now.AddDays(3);
 
             //act
-            var alerta = new Alerta(TipoAlerta.INFORMATIVA, tema, fechaExpiracion, false, true);
+            var alerta = new Alerta(TipoAlerta.INFORMATIVA, tema, fechaExpiracion, false, true, false);
 
             //assert
             Assert.AreEqual(TipoAlerta.INFORMATIVA, alerta.Tipo, "Error: El tipo de alerta es incorrecto.");
@@ -27,6 +27,7 @@ namespace TestSistemaDeAlertas
             Assert.AreEqual(alerta.FechaExpiracion, fechaExpiracion, "Error: La fecha de expiración no coincide.");
             Assert.IsFalse(alerta.Expiro, "Error: El atributo 'expiró' deberia ser false.");
             Assert.IsTrue(alerta.Leido, "Error: El atributo 'leído' debe ser true.");
+            Assert.IsFalse(alerta.Expiro, "Error: El atributo 'esParaTodos' deberia ser false.");
         }
 
         [TestMethod()]
@@ -34,7 +35,7 @@ namespace TestSistemaDeAlertas
         {
             //arrange
             var tema = new Tema("Noticia");
-            var alerta = new Alerta(TipoAlerta.INFORMATIVA, tema, DateTime.Now.AddDays(-4), false, true);
+            var alerta = new Alerta(TipoAlerta.INFORMATIVA, tema, DateTime.Now.AddDays(-4), false, true, false);
 
             //act
             alerta.esExpirada();
@@ -49,7 +50,7 @@ namespace TestSistemaDeAlertas
         {
             //arrange
             var tema = new Tema("Noticia");
-            var alerta = new Alerta(TipoAlerta.INFORMATIVA, tema, DateTime.Now.AddDays(5), false, true);
+            var alerta = new Alerta(TipoAlerta.INFORMATIVA, tema, DateTime.Now.AddDays(5), false, true, false);
 
             //act
             alerta.esExpirada();
