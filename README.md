@@ -1,11 +1,11 @@
-## Requisitos previos
+## Requisitos
 - .NET 8 SDK instalado
 - MS Testing para ejecutar las pruebas unitarias
 
 ## Ejecución
 1. Clona el repositorio:
    ```bash
-   git clone <url-del-repositorio>
+   git clone https://github.com/FranciscoAndreoli/SistemaDeAlertas
    ```
 2. Abrí la solución (`.sln`) en Visual Studio y ejecutá el programa.
 
