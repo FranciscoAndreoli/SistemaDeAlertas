@@ -1,4 +1,5 @@
 ﻿using SistemaDeAlertas.Interfaces;
+using System.ComponentModel.DataAnnotations;
 
 namespace SistemaDeAlertas.Entidades
 {
@@ -10,17 +11,6 @@ namespace SistemaDeAlertas.Entidades
         {
             this.Nombre = nombre;
             this.AlertasDelUsuario = new List<Alerta>();
-
-        }
-
-        public void marcarAlertaComoLeida()
-        {
-            throw new NotImplementedException();
-        }
-
-        public List<Alerta> obtenerAlertasNoLeidas()
-        {
-            throw new NotImplementedException();
         }
 
         public void suscribirseATema(INotificador notificador)
@@ -32,6 +22,30 @@ namespace SistemaDeAlertas.Entidades
         {
             AlertasDelUsuario.Add(alerta);
 
+        }
+
+        public void marcarPrimeraAlertaNoLeidaComoLeida()
+        {
+            var alerta = AlertasDelUsuario.FirstOrDefault(a => !a.Leido);
+            if (alerta != null)
+            {
+                alerta.Leido = true;
+            }
+        }
+
+        public List<Alerta> obtenerAlertasNoLeidasNoExpiradas()
+        {
+            var alertasNoLeidasNoExpiradas = new List<Alerta>();
+
+            foreach (var alerta in AlertasDelUsuario)
+            {
+                if (!alerta.Leido && !alerta.haExpirado())
+                {
+                    alertasNoLeidasNoExpiradas.Add(alerta);
+                }
+            }
+
+            return alertasNoLeidasNoExpiradas;
         }
     }
 }

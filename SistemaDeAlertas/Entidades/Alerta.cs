@@ -9,7 +9,7 @@ namespace SistemaDeAlertas.Entidades
         public Tema TemaAsociado { get; private set; }
         public DateTime FechaExpiracion { get; private set; }
         public bool Expiro { get; private set; }
-        public bool Leido { get; private set; }
+        public bool Leido { get; set; }
         public bool EsParaTodos {  get; private set; } 
         public Usuario? UsuarioEspecifico { get; private set; }
 
@@ -25,13 +25,14 @@ namespace SistemaDeAlertas.Entidades
             this.UsuarioEspecifico = usuarioEspecifico;
         }
 
-        public void esExpirada()
+        public bool haExpirado()
         {
-            if (FechaExpiracion < DateTime.Now)
-            {
-                Expiro = true;
-            }
+            return FechaExpiracion < DateTime.Now;
+        }
 
+        public void marcarComoExpirada()
+        {
+            Expiro = true;
         }
     }
 }

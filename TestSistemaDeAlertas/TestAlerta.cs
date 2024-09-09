@@ -1,10 +1,5 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using SistemaDeAlertas.Entidades;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace TestSistemaDeAlertas
 {
@@ -25,39 +20,43 @@ namespace TestSistemaDeAlertas
             Assert.AreEqual(TipoAlerta.INFORMATIVA, alerta.Tipo, "Error: El tipo de alerta es incorrecto.");
             Assert.AreEqual(alerta.TemaAsociado, tema, "Error: El tema asociado es incorrecto.");
             Assert.AreEqual(alerta.FechaExpiracion, fechaExpiracion, "Error: La fecha de expiración no coincide.");
-            Assert.IsFalse(alerta.Expiro, "Error: El atributo 'expiró' deberia ser false.");
+            Assert.IsFalse(alerta.haExpirado(), "Error: El atributo 'expiró' deberia ser false.");
             Assert.IsTrue(alerta.Leido, "Error: El atributo 'leído' debe ser true.");
-            Assert.IsFalse(alerta.Expiro, "Error: El atributo 'esParaTodos' deberia ser false.");
+            Assert.IsFalse(alerta.haExpirado(), "Error: El atributo 'esParaTodos' deberia ser false.");
         }
 
         [TestMethod()]
-        public void AlertaDebeSerExpirada_CuandoFechaExpiracionEsPasada()
+        public void AlertaDebeSerExpirada()
         {
             //arrange
             var tema = new Tema("Noticia");
             var alerta = new Alerta(TipoAlerta.INFORMATIVA, tema, DateTime.Now.AddDays(-4), false, true, false);
 
             //act
-            alerta.esExpirada();
+            if (alerta.haExpirado())
+            {
+                alerta.marcarComoExpirada();
+            }
 
             //assert
-            Assert.IsTrue(alerta.Expiro, "Error: El atributo 'Expiró' debería ser True.");
-
+            Assert.IsTrue(alerta.haExpirado(), "Error: El atributo 'Expiró' debería ser True.");
         }
 
         [TestMethod()]
-        public void AlertaDebeSerNoExpirada_CuandoFechaExpiracionEsFutura()
+        public void AlertaDebeSerNoExpirada()
         {
             //arrange
             var tema = new Tema("Noticia");
             var alerta = new Alerta(TipoAlerta.INFORMATIVA, tema, DateTime.Now.AddDays(5), false, true, false);
 
             //act
-            alerta.esExpirada();
+            if (alerta.haExpirado())
+            {
+                alerta.marcarComoExpirada();
+            }
 
             //assert
-            Assert.IsFalse(alerta.Expiro, "Error: El atributo 'Expiró' debería ser False.");
-
+            Assert.IsFalse(alerta.haExpirado(), "Error: El atributo 'Expiró' debería ser False.");
         }
     }
 }

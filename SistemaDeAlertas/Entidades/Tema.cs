@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel.DataAnnotations;
 using SistemaDeAlertas.Interfaces;
 
 namespace SistemaDeAlertas.Entidades
@@ -22,9 +23,17 @@ namespace SistemaDeAlertas.Entidades
             AlertasDelTema.Add(nuevaAlerta);
         }
 
-        public void obtenerAlertasNoExpiradas()
+        public List<Alerta> obtenerAlertasNoExpiradas()
         {
-            throw new NotImplementedException();
+            var alertasNoExpiradas = new List<Alerta>();
+            foreach (var alerta in AlertasDelTema)
+            {
+                if (!alerta.haExpirado())
+                {
+                    alertasNoExpiradas.Add(alerta);
+                }
+            }
+            return alertasNoExpiradas;
         }
 
         public void suscribirUsuario(IObservador usuario)
@@ -44,11 +53,23 @@ namespace SistemaDeAlertas.Entidades
 
         public void notificarUsuarios()
         {
-            throw new NotImplementedException();
-        }
-        public void notificarUsuario(IObservador usuario)
-        {
-            throw new NotImplementedException();
+            foreach(var alerta in AlertasDelTema)
+            {
+                if (alerta.EsParaTodos)
+                {
+                    foreach (var usuario in ObservadoresSuscriptos)
+                    {
+                        usuario.recibirAlerta(alerta);
+                    }
+                }
+                else
+                {
+                    if (alerta.UsuarioEspecifico != null)
+                    {
+                        alerta.UsuarioEspecifico.recibirAlerta(alerta);
+                    }
+                }
+            }
         }
     }
 }

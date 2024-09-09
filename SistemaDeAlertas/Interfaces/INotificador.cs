@@ -7,6 +7,5 @@ namespace SistemaDeAlertas.Interfaces
         void suscribirUsuario(IObservador usuario);
         void desuscribirUsuario(IObservador usuario);
         void notificarUsuarios();
-        void notificarUsuario(IObservador usuario);
     }
 }
