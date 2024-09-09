@@ -45,7 +45,13 @@ namespace SistemaDeAlertas.Entidades
                 }
             }
 
-            return alertasNoLeidasNoExpiradas;
+            // Urgentes LIFO primero y después informativas FIFO.
+            var urgentes = alertasNoLeidasNoExpiradas.Where(a => a.Tipo == TipoAlerta.URGENTE).OrderByDescending(a => a.FechaExpiracion);
+
+            var informativas = alertasNoLeidasNoExpiradas.Where(a => a.Tipo == TipoAlerta.INFORMATIVA).OrderBy(a => a.FechaExpiracion);
+
+            return urgentes.Concat(informativas).ToList();
         }
+
     }
 }

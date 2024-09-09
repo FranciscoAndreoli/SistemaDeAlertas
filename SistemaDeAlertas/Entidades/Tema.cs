@@ -26,6 +26,7 @@ namespace SistemaDeAlertas.Entidades
         public List<Alerta> obtenerAlertasNoExpiradas()
         {
             var alertasNoExpiradas = new List<Alerta>();
+
             foreach (var alerta in AlertasDelTema)
             {
                 if (!alerta.haExpirado())
@@ -33,8 +34,14 @@ namespace SistemaDeAlertas.Entidades
                     alertasNoExpiradas.Add(alerta);
                 }
             }
-            return alertasNoExpiradas;
+
+            var urgentes = alertasNoExpiradas.Where(a => a.Tipo == TipoAlerta.URGENTE).OrderByDescending(a => a.FechaExpiracion); 
+
+            var informativas = alertasNoExpiradas.Where(a => a.Tipo == TipoAlerta.INFORMATIVA).OrderBy(a => a.FechaExpiracion);
+
+            return urgentes.Concat(informativas).ToList();
         }
+
 
         public void suscribirUsuario(IObservador usuario)
         {
